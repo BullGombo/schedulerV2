@@ -21,31 +21,31 @@ public class ScheduleController {
 
     // ############################################## 메서드 ##############################################
     // ---------------------------------------- 일정 생성 - POST ----------------------------------------
-    @PostMapping("/scheduler")
-    public ResponseEntity<CreateScheduleResponse> createSchedule(@RequestBody CreateScheduleRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(scheduleService.createS(request));
+    @PostMapping("/users/{userId}/scheduler")
+    public ResponseEntity<CreateScheduleResponse> createSchedule(@PathVariable Long userId, @RequestBody CreateScheduleRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(scheduleService.createS(userId, request));
     }
 
     // ---------------------------------------- 일정 단건 조회 - GET ----------------------------------------
-    @GetMapping("/scheduler/{scheduleId}")
+    @GetMapping("/users/{userId}/scheduler/{scheduleId}")
     public ResponseEntity<GetScheduleResponse> getSchedule(@PathVariable Long scheduleId) {
         return ResponseEntity.status(HttpStatus.OK).body(scheduleService.getS(scheduleId));
     }
 
     // ---------------------------------------- 일정 다건 조회 - GET ----------------------------------------
-    @GetMapping("/scheduler")
-    public ResponseEntity<List<GetAllSchedulesResponse>> getAllSchedules() {
-        return ResponseEntity.status(HttpStatus.OK).body(scheduleService.getAllS());
+    @GetMapping("/users/{userId}/scheduler")
+    public ResponseEntity<List<GetAllSchedulesResponse>> getAllSchedules(@PathVariable Long userId) {    // @RequestParam(required=false) String xxx, Null일수도 있음
+        return ResponseEntity.status(HttpStatus.OK).body(scheduleService.getAllS(userId));               // commentService.search(xxx)
     }
 
     // ---------------------------------------- 일정 수정 - PUT ----------------------------------------
-    @PutMapping("/schedule/{scheduleId}")
+    @PutMapping("/users/{userId}/schedule/{scheduleId}")
     public ResponseEntity<UpdateScheduleResponse> updateSchedule(@PathVariable Long scheduleId, @RequestBody UpdateScheduleRequest request) {
         return ResponseEntity.status(HttpStatus.OK).body(scheduleService.updateS(scheduleId, request));
     }
 
     // ---------------------------------------- 일정 삭제 - DELETE ----------------------------------------
-    @DeleteMapping("/scheduler/{scheduleId}")
+    @DeleteMapping("/users/{userId}/scheduler/{scheduleId}")
     public ResponseEntity<Void> deleteSchedule(@PathVariable Long scheduleId) {
         scheduleService.deleteS(scheduleId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

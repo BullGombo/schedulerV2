@@ -20,31 +20,31 @@ public class UserController {
 
     // ############################################## 메서드 ##############################################
     // ---------------------------------------- 유저 생성 - POST ----------------------------------------
-    @PostMapping("/scheduler/{scheduleId}/users")
-    public ResponseEntity<CreateUserResponse> createUser(@PathVariable Long scheduleId, @RequestBody CreateUserRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.createU(scheduleId, request));
+    @PostMapping("/users")
+    public ResponseEntity<CreateUserResponse> createUser(@RequestBody CreateUserRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.createU(request));
     }
 
     // ---------------------------------------- 유저 단건 조회 - GET ----------------------------------------
-    @GetMapping("/scheduler/{scheduleId}/users/{userId}")
+    @GetMapping("/users/{userId}")
     public ResponseEntity<GetUserResponse> getUser(@PathVariable Long userId) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.getU(userId));
     }
 
     // ---------------------------------------- 유저 다건 조회 - GET ----------------------------------------
-    @GetMapping("/scheduler/{scheduleId}/users")
-    public ResponseEntity<List<GetUserResponse>> getAllUsers(@PathVariable Long scheduleId) { // @RequestParam(required=false) String xxx, Null 가능
-        return ResponseEntity.status(HttpStatus.OK).body(userService.getAllU(scheduleId));    // .body( userService.search(xxx) );
+    @GetMapping("/scheduler")
+    public ResponseEntity<List<GetUserResponse>> getAllUsers() { // @RequestParam(required=false) String xxx, Null 가능
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getAllU());    // .body( userService.search(xxx) );
     }
 
     // ---------------------------------------- 유저 수정 - PUT ----------------------------------------
-    @PutMapping("/scheduler/{scheduleId}/users/{userId}")
+    @PutMapping("/users/{userId}")
     public ResponseEntity<UpdateUserResponse> updateUser(@PathVariable Long userId, @RequestBody UpdateUserRequest request) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.updateU(userId, request));
     }
 
     // ---------------------------------------- 유저 삭제 - DELETE ----------------------------------------
-    @DeleteMapping("/scheduler/{scheduleId}/users/{userId}")
+    @DeleteMapping("/users/{userId}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
         userService.deleteU(userId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
