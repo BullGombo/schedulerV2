@@ -132,10 +132,15 @@ public class ScheduleService {
     // ---------------------------------------- 삭제 - DELETE ----------------------------------------
     @Transactional
     public void deleteS(Long scheduleId) {
+        // id 존재여부 검사
         boolean existence = schedulerRepository.existsById(scheduleId);
+        
+        // 없을 경우 예외처리
         if (! existence) {
             throw new IllegalStateException("##### Scheduler id : " + scheduleId + " 를 찾을 수 없습니다. #####");
         }
+        
+        // id기준 Repository에서 삭제
         schedulerRepository.deleteById(scheduleId);
     }
 
