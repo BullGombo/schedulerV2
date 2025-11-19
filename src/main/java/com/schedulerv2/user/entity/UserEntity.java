@@ -17,7 +17,7 @@ public class UserEntity extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Lv 2. 유저 CRUD 필수
+    // ========== Lv 2. 유저 CRUD - 필수
     // 유저명, 이메일 필드를 가짐
     // 작성일, 수정일 필드는 JPA Auditing을 활용 -> extends BaseEntity
     @Column(nullable = false, unique = true)
@@ -26,11 +26,18 @@ public class UserEntity extends BaseEntity {
     @Column(nullable = false)   // 이메일 형식 지정 알아보기
     private String email;
 
+    // ========== Lv 3. 회원가입 - 필수
+    // 유저에 비밀번호 필드를 추가
+    @Column(nullable = false)
+    private String password;
+
+
     // ######################################## 생성자 ########################################
     // id는 자동으로 할당되므로 제외
-    public UserEntity(String username, String email) {
+    public UserEntity(String username, String email, String password) {
         this.username = username;
         this.email = email;
+        this.password = password;
     }
 
     // ######################################## 메서드 ########################################

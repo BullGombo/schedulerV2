@@ -26,7 +26,7 @@ public class UserService {
     @Transactional
     public CreateUserResponse createU(CreateUserRequest request) {
         // Entity에 요청dto 넣기
-        UserEntity userEntity = new UserEntity(request.getUsername(), request.getEmail());
+        UserEntity userEntity = new UserEntity(request.getUsername(), request.getEmail(), request.getPassword());
 
         // 요청 내용을 채운 Entity테이블의 데이터로 실제 Repository에 저장 + 응답dto 반환에 쓸 변수 할당
         UserEntity savedUser = userRepository.save(userEntity);
