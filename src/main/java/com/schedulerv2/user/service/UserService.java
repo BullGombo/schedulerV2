@@ -46,9 +46,9 @@ public class UserService {
     // ---------------------------------------- 단건 조회 - GET ----------------------------------------
     @Transactional(readOnly = true)
     public GetUserResponse getU(Long userId) {
-        // schedulerId를 기반으로 실제 Repository에서 찾아 Entity에 넣기 + 예외처리
+        // userId를 기반으로 실제 Repository에서 찾아 Entity에 넣기 + 예외처리
         UserEntity userEntity = userRepository.findById(userId).orElseThrow(
-                () -> new IllegalStateException("##### user id : \" + userId + \" 를 찾을 수 없습니다. #####")
+                () -> new IllegalStateException("##### user id : " + userId + " 를 찾을 수 없습니다. #####")
         );
 
         // 응답dto 반환
@@ -108,7 +108,7 @@ public class UserService {
     public UpdateUserResponse updateU(Long userId, UpdateUserRequest request) {
         // schedulerId를 기반으로 실제 Repository에서 찾아 Entity에 넣기 + 예외처리
         UserEntity userEntity = userRepository.findById(userId).orElseThrow(
-                () -> new IllegalStateException("##### user id : \" + userId + \" 를 찾을 수 없습니다. #####")
+                () -> new IllegalStateException("##### user id : " + userId + " 를 찾을 수 없습니다. #####")
         );
 
         // 수정
@@ -132,7 +132,7 @@ public class UserService {
 
         // 없을 경우 예외처리
         if (!existence) {
-            throw new IllegalStateException("##### user id : \" + userId + \" 를 찾을 수 없습니다. #####");
+            throw new IllegalStateException("##### user id : " + userId + " 를 찾을 수 없습니다. #####");
         }
 
         // id기준 Repository에서 삭제
