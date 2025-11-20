@@ -288,6 +288,7 @@ erDiagram
     USER ||--o{ SCHEDULER : "has many"
 ```
 
+<img width="553" height="569" alt="image" src="https://github.com/user-attachments/assets/dc3b648d-70c1-40d8-b661-3e0f9fc631a6" />
 
 
 
