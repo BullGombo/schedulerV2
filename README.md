@@ -262,7 +262,7 @@
 
 ---
 
-## 📌 ERD (Mermaid 공식 문법)
+## 📌 ERD 
 
 ```mermaid
 erDiagram
