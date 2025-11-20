@@ -245,19 +245,20 @@
 
 ## 🎯 전체 API 요약 표
 
-| 기능       | Method | URL                                  | 인증 필요? | Request Body | Response  |
-| -------- | ------ | ------------------------------------ | ------ | ------------ | --------- |
-| 유저 생성    | POST   | `/users`                             | ❌      | O            | 생성된 유저 정보 |
-| 유저 조회    | GET    | `/users/{id}`                        | ❌      | X            | 유저 정보     |
-| 유저 전체 조회 | GET    | `/scheduler`                         | ❌      | X            | 유저 리스트    |
-| 유저 수정    | PUT    | `/users/{id}`                        | ❌      | O            | 수정된 유저    |
-| 유저 삭제    | DELETE | `/users/{id}`                        | ❌      | X            | 204       |
-| 로그인      | POST   | `/login`                             | ❌      | O            | 로그인 성공 정보 |
-| 일정 생성    | POST   | `/users/{id}/scheduler`              | ❌      | O            | 일정 정보     |
-| 일정 조회    | GET    | `/users/{id}/scheduler/{scheduleId}` | ❌      | X            | 일정 정보     |
-| 일정 전체 조회 | GET    | `/users/{id}/scheduler`              | ❌      | X            | 일정 리스트    |
-| 일정 수정    | PUT    | `/users/{id}/schedule/{scheduleId}`  | ❌      | O            | 수정된 일정    |
-| 일정 삭제    | DELETE | `/users/{id}/scheduler/{scheduleId}` | ❌      | X            | 204       |
+
+| 기능       | Method | URL                                | Status Code                                 | Request Body | Response  |
+| -------- | ------ | ---------------------------------- | ------------------------------------------- | ------------ | --------- |
+| 유저 생성    | POST   | /users                             | **201 Created**                             | O            | 생성된 유저 정보 |
+| 유저 조회    | GET    | /users/{id}                        | **200 OK**                                  | X            | 유저 정보     |
+| 유저 전체 조회 | GET    | /users                             | **200 OK**                                  | X            | 유저 리스트    |
+| 유저 수정    | PUT    | /users/{id}                        | **200 OK**                                  | O            | 수정된 유저    |
+| 유저 삭제    | DELETE | /users/{id}                        | **204 No Content**                          | X            | 없음        |
+| 로그인      | POST   | /login                             | **200 OK** (성공) / **401 Unauthorized** (실패) | O            | 로그인 정보    |
+| 일정 생성    | POST   | /users/{id}/scheduler              | **201 Created**                             | O            | 생성된 일정 정보 |
+| 일정 조회    | GET    | /users/{id}/scheduler/{scheduleId} | **200 OK**                                  | X            | 일정 정보     |
+| 일정 전체 조회 | GET    | /users/{id}/scheduler              | **200 OK**                                  | X            | 일정 리스트    |
+| 일정 수정    | PUT    | /users/{id}/scheduler/{scheduleId} | **200 OK**                                  | O            | 수정된 일정    |
+| 일정 삭제    | DELETE | /users/{id}/scheduler/{scheduleId} | **204 No Content**                          | X            | 없음        |
 
 
 ---
