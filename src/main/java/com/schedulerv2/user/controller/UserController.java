@@ -1,7 +1,10 @@
 package com.schedulerv2.user.controller;
 
+import com.schedulerv2.login.dto.LoginRequest;
+import com.schedulerv2.login.dto.LoginResponse;
 import com.schedulerv2.user.dto.*;
 import com.schedulerv2.user.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,6 +51,13 @@ public class UserController {
     public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
         userService.deleteU(userId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    // ========== Lv 4. 로그인(인증) - 필수
+    // ---------------------------------------- 유저 로그인 - POST ----------------------------------------
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request, HttpServletRequest httpRequest) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.login(request, httpRequest));
     }
 
 }

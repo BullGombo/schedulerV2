@@ -1,13 +1,16 @@
 package com.schedulerv2.user.service;
 
+import com.schedulerv2.login.dto.LoginRequest;
+import com.schedulerv2.login.dto.LoginResponse;
 import com.schedulerv2.user.dto.*;
 import com.schedulerv2.user.entity.UserEntity;
 import com.schedulerv2.user.repository.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -138,4 +141,31 @@ public class UserService {
         // id기준 Repository에서 삭제
         userRepository.deleteById(userId);
     }
+
+    // ========== Lv 4. 로그인(인증) - 필수
+    // ---------------------------------------- 유저 로그인 - POST ----------------------------------------
+    @Transactional(readOnly = true)
+    public LoginResponse login(LoginRequest request, HttpServletRequest httpRequest) {
+
+        // email로 유저 검색
+        UserEntity userEntity = userRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new IllegalStateException("##### 이메일 또는 비밀번호가 일치하지 않습니다. #####"));
+
+        // 비밀번호 일치 여부 확인
+        if (!userEntity.getPassword().equals(request.getPassword())) {
+            throw new IllegalStateException("##### 이메일 또는 비밀번호가 일치하지 않습니다. #####");
+        }
+
+        // 세션 생성
+        HttpSession session = httpRequest.getSession(true);
+        session.setAttribute("LOGIN_USER", userEntity.getId());
+
+        return new LoginResponse(
+                userEntity.getId(),
+                userEntity.getUsername(),
+                userEntity.getEmail()
+        );
+    }
+
+
 }
